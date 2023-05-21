@@ -19,9 +19,17 @@
                   </button>
                   <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                      <li class="nav-item">
-                        <a class="nav-link" href="/home">Войти</a>
-                      </li>
+                      @guest
+                        @if (Route::has('login'))
+                          <li class="nav-item">
+                            <a class="nav-link" href="/home">Войти</a>
+                          </li>
+                        @endif
+                      @else
+                        <li class="nav-item">
+                          <a class="nav-link" href="/home">{{ Auth::user()->name }}</a>
+                        </li>
+                      @endguest
                     </ul>
                   </div>
                 </div>
