@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->name('main.index');
 
-Route::get('/post/{post}', [PostController::class, 'show'])->name('post.show');
-Auth::routes();
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/posts/{post}/edit', [HomeController::class, 'edit'])->name('post.edit');
+Route::patch('/posts/{post}', [HomeController::class, 'update'])->name('post.update');
+Route::delete('/posts/{post}', [HomeController::class, 'destroy'])->name('post.delete');
+
+Auth::routes();

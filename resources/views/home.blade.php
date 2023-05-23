@@ -22,9 +22,13 @@
                             <div class="card-body">
                             <h5 class="card-title">{{ $key->title }}</h5>
                             <p class="card-text">{{ $key->card_text }}</p>
-                            <a href="/post/{{ $key->id }}" class="btn btn-primary">Читать</a>
-                            <a href="#" class="btn btn-primary">Редактировать</a>
-                            <a href="#" class="btn btn-primary" style="margin-top: 5px;">Удалить</a>
+                            <a href="/posts/{{ $key->id }}" class="btn btn-primary">Читать</a>
+                            <a href="{{ route('post.edit', $key->id) }}" class="btn btn-primary">Редактировать</a>
+                            <form style="margin-top: 5px;" action="{{ route('post.delete', $key->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-primary">Удалить</button>
+                            </form>
                             </div>
                         </div>
                     @endforeach
