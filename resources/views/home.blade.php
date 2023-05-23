@@ -13,7 +13,21 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    Posts: {{ $postsCount }}         
+                    <div>
+                        Posts: {{ $posts }} 
+                    </div>
+                    <hr>  
+                    @foreach ($userPosts as $key)
+                        <div class="card" style="width: 18rem; margin-top: 10px; margin-left: 10px;">
+                            <div class="card-body">
+                            <h5 class="card-title">{{ $key->title }}</h5>
+                            <p class="card-text">{{ $key->card_text }}</p>
+                            <a href="/post/{{ $key->id }}" class="btn btn-primary">Читать</a>
+                            <a href="#" class="btn btn-primary">Редактировать</a>
+                            <a href="#" class="btn btn-primary" style="margin-top: 5px;">Удалить</a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

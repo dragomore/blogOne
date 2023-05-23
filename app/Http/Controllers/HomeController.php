@@ -25,8 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // dd(Auth::user()->name);
         $posts = Post::where('author', Auth::user()->name);
-        $postsCount = $posts->count();
-        return view('home', compact('postsCount'));
+        $posts = $posts->count();
+        $userPosts = Post::where('author', Auth::user()->name);
+        $userPosts = $userPosts->get();
+        return view('home', compact('posts', 'userPosts'));
     }
 }
