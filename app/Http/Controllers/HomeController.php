@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -26,12 +27,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // dd(Auth::user()->name);
         $posts = Post::where('author', Auth::user()->name);
         $posts = $posts->count();
-        $userPosts = Post::where('author', Auth::user()->name);
+
+        $user = Auth::user();
+        $id = $user->id;
+
+        $userPosts = Post::where('user_id', $id);
         $userPosts = $userPosts->get();
         return view('home', compact('posts', 'userPosts'));
+    }
+
+    public function create(Post $post){
+        return view('post.create', compact('post'));
+    }
+
+    public function store(PostCreateRequest $request, Post $post){
+        $data = $request->validated();
+        Post::create($data);
+        return redirect()->route('home');
     }
 
     public function edit(Post $post){
@@ -40,7 +54,6 @@ class HomeController extends Controller
 
     public function update(PostStoreRequest $request, Post $post){
         $data = $request->validated();
-        // dd($data);
         $post->update($data);
         return redirect()->route('post.show', $post->id);
     }

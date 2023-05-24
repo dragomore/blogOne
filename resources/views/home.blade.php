@@ -14,11 +14,12 @@
                         </div>
                     @endif
                     <div>
-                        Posts: {{ $posts }} 
+                        Posts: {{ $posts }}
                     </div>
                     <hr>  
+                    <a href="{{ route('post.create') }}" type="button" class="btn btn-success">Новая статья</a>
                     @foreach ($userPosts as $key)
-                        <div class="card" style="width: 18rem; margin-top: 10px; margin-left: 10px;">
+                        <div class="card" style="width: 18rem; margin-top: 10px;">
                             <div class="card-body">
                             <h5 class="card-title">{{ $key->title }}</h5>
                             <p class="card-text">{{ $key->card_text }}</p>
